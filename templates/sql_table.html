@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            {% for item in header %}
+            <th>{{item}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in body %}
+            <tr>
+                {% for value in item %}
+                <td>{{ value|default("N/A") }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
