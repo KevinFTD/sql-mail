@@ -58,10 +58,10 @@ class Email(object):
 
     def _prepare(self):
 
-        # 尝试用utf8和GBK解码邮件内容和主题成unicode
         content = self.additional_content + self.content if self.additional_content else self.content
         subject = self.subject
 
+        # try to decode subject and content into unicode
         try:
             content = unicode(content, 'utf8')
             sub = unicode(subject, 'utf8')
@@ -72,7 +72,7 @@ class Email(object):
             except UnicodeDecodeError:
                 logging.error("cannot convert content or sub into unicode")
                 raise
-        # 已经是unicode
+        # already unicode
         except TypeError:
             pass
 
@@ -110,12 +110,12 @@ class Email(object):
         self._prepare()
 
         retry_times = 0
-        # 每隔三秒重试一次 100次后退出
+        # retry every 3 seconds for 100 times
         while retry_times <= 100:
             result = self._send_mail(mail_server, username, password)
             if result:
                 break
-            time.sleep(3)  # 等待3s
+            time.sleep(3)  # wait for 3 seconds
             retry_times += 1
 
     def _send_mail(self, mail_server, username, password):
