@@ -1,1 +1,3 @@
 recursive-include sqlmail/bin *
+recursive-include sqlmail/demo_files *
+recursive-include sqlmail/templates *
