@@ -64,14 +64,13 @@ class Email(object):
         # try to decode subject and content into unicode
         try:
             content = unicode(content, 'utf8')
-            sub = unicode(subject, 'utf8')
+            subject = unicode(subject, 'utf8')
         except UnicodeDecodeError:
             try:
                 content = unicode(content, 'gbk')
-                sub = unicode(subject, 'gbk')
+                subject = unicode(subject, 'gbk')
             except UnicodeDecodeError:
-                logging.error("cannot convert content or sub into unicode")
-                raise
+                raise UnicodeDecodeError("cannot convert content or sub into unicode")
         # already unicode
         except TypeError:
             pass
